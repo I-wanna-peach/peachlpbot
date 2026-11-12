@@ -1,0 +1,32 @@
+{
+  "name": "peachlpbot",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "bun@1.4.3",
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "scripts": {
+    "build": "bun node_modules/typescript/bin/tsc -p tsconfig.json",
+    "migrate": "bun src/db/migrate.ts",
+    "start": "bun src/index.ts",
+    "index": "bun src/index.ts --only=index",
+    "monitor": "bun src/index.ts --only=monitor",
+    "bot": "bun src/index.ts --only=bot",
+    "bot:check": "bun src/scripts/telegram-check.ts",
+    "discover": "bun src/scripts/discover.ts",
+    "probe": "bun src/scripts/probe.ts",
+    "test": "bun test test/*.test.ts"
+  },
+  "dependencies": {
+    "grammy": "^1.30.0",
+    "postgres": "^3.4.7",
+    "viem": "^2.56.3"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.3",
+    "@types/node": "^26.4.1",
+    "typescript": "5.7.3"
+  }
+}

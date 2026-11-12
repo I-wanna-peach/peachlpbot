@@ -1,0 +1,28 @@
+[Unit]
+Description=peachlpbot — BSC + Arc LP monitor and Telegram bot
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=peach
+Group=peach
+WorkingDirectory=/opt/peachlpbot/current
+EnvironmentFile=/etc/peachlpbot/env
+Environment=HOME=/var/lib/peach
+# api.telegram.org resolves IPv6-first on this host and has no working IPv6
+# route; Bun then hangs until the fetch timeout. Force IPv4 resolution.
+Environment=NODE_OPTIONS=--dns-result-order=ipv4first
+ExecStart=/opt/peachlpbot/bin/bun run start
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+StateDirectory=peach
+StateDirectoryMode=0750
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
